@@ -72,15 +72,20 @@ const STYLING_TIPS = [
 export default function StylistaPage() {
   const [userImage, setUserImage] = useState<File | null>(null);
   const [userImagePreview, setUserImagePreview] = useState<string | null>(null);
+  const [clothingImage, setClothingImage] = useState<File | null>(null);
+  const [clothingImagePreview, setClothingImagePreview] = useState<string | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [clothingMode, setClothingMode] = useState<'upload' | 'catalog'>('upload');
   const [activeCategory, setActiveCategory] = useState('all');
   const [resultImageUrl, setResultImageUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [isClothingDragOver, setIsClothingDragOver] = useState(false);
   const [titleReady, setTitleReady] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const clothingFileInputRef = useRef<HTMLInputElement>(null);
   const tryOnSectionRef = useRef<HTMLDivElement>(null);
 
   // Scroll reveal with IntersectionObserver
@@ -151,9 +156,42 @@ export default function StylistaPage() {
     }
   }, []);
 
+  const handleClothingFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setClothingImage(file);
+      setSelectedProduct(null);
+      const reader = new FileReader();
+      reader.onloadend = () => setClothingImagePreview(reader.result as string);
+      reader.readAsDataURL(file);
+      setError(null);
+    }
+  };
+
+  const handleClothingDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setIsClothingDragOver(false);
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) {
+      setClothingImage(file);
+      setSelectedProduct(null);
+      const reader = new FileReader();
+      reader.onloadend = () => setClothingImagePreview(reader.result as string);
+      reader.readAsDataURL(file);
+      setError(null);
+    }
+  }, []);
+
+  // Determine if we have a clothing source ready
+  const hasClothing = clothingMode === 'upload' ? !!clothingImage : !!selectedProduct;
+
   const handleTryOn = async () => {
-    if (!userImage || !selectedProduct) {
-      setError('Ανέβασε τη φωτογραφία σου και επίλεξε ένα ρούχο.');
+    if (!userImage) {
+      setError('Ανέβασε τη φωτογραφία σου.');
+      return;
+    }
+    if (!hasClothing) {
+      setError(clothingMode === 'upload' ? 'Ανέβασε μια φωτογραφία ρούχου.' : 'Επίλεξε ένα ρούχο από τον κατάλογο.');
       return;
     }
 
@@ -162,17 +200,20 @@ export default function StylistaPage() {
     setResultImageUrl(null);
 
     try {
-      // Fetch the product image as a PNG blob
-      const productImageResponse = await fetch(selectedProduct.image);
-      if (!productImageResponse.ok) {
-        throw new Error('Δεν μπόρεσε να φορτωθεί η εικόνα προϊόντος.');
-      }
-      const productImageBlob = await productImageResponse.blob();
+      let clothingFile: File;
 
-      // Ensure we send it as image/png
-      const clothingFile = new File([productImageBlob], 'clothing.png', {
-        type: 'image/png',
-      });
+      if (clothingMode === 'upload' && clothingImage) {
+        clothingFile = clothingImage;
+      } else if (selectedProduct) {
+        const productImageResponse = await fetch(selectedProduct.image);
+        if (!productImageResponse.ok) {
+          throw new Error('Δεν μπόρεσε να φορτωθεί η εικόνα προϊόντος.');
+        }
+        const productImageBlob = await productImageResponse.blob();
+        clothingFile = new File([productImageBlob], 'clothing.png', { type: 'image/png' });
+      } else {
+        throw new Error('Δεν βρέθηκε εικόνα ρούχου.');
+      }
 
       const formData = new FormData();
       formData.append('userImage', userImage);
@@ -470,7 +511,7 @@ export default function StylistaPage() {
               )}
             </div>
 
-            {/* RIGHT — Product Selection */}
+            {/* RIGHT — Clothing Selection */}
             <div className="reveal reveal-delay-1">
               <h3
                 className="mb-6"
@@ -480,62 +521,138 @@ export default function StylistaPage() {
                   color: 'var(--accent-gold-soft)',
                 }}
               >
-                Επίλεξε Ρούχο
+                Το Ρούχο
               </h3>
 
-              {/* Category Tabs */}
-              <div className="flex flex-wrap gap-2 mb-6">
-                {CATEGORIES.map((cat) => (
-                  <button
-                    key={cat.id}
-                    className={`category-tab ${activeCategory === cat.id ? 'active' : ''}`}
-                    onClick={() => setActiveCategory(cat.id)}
-                  >
-                    {cat.label}
-                  </button>
-                ))}
+              {/* Mode Toggle: Upload vs Catalog */}
+              <div className="flex gap-2 mb-6">
+                <button
+                  className={`category-tab ${clothingMode === 'upload' ? 'active' : ''}`}
+                  onClick={() => setClothingMode('upload')}
+                >
+                  📷 Ανέβασε Ρούχο
+                </button>
+                <button
+                  className={`category-tab ${clothingMode === 'catalog' ? 'active' : ''}`}
+                  onClick={() => setClothingMode('catalog')}
+                >
+                  🛍 Κατάλογος
+                </button>
               </div>
 
-              {/* Product Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto pr-2">
-                {filteredProducts.map((product) => (
-                  <div
-                    key={product.id}
-                    className={`product-card ${selectedProduct?.id === product.id ? 'selected' : ''}`}
-                    onClick={() => setSelectedProduct(product)}
-                  >
-                    <div className="checkmark">✓</div>
-                    <div className="aspect-[4/5] overflow-hidden">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
+              {/* === UPLOAD MODE === */}
+              {clothingMode === 'upload' && (
+                <>
+                  {!clothingImagePreview ? (
+                    <div
+                      className={`upload-area ${isClothingDragOver ? 'drag-over' : ''}`}
+                      onClick={() => clothingFileInputRef.current?.click()}
+                      onDragOver={(e) => { e.preventDefault(); setIsClothingDragOver(true); }}
+                      onDragLeave={() => setIsClothingDragOver(false)}
+                      onDrop={handleClothingDrop}
+                    >
+                      <div className="text-4xl mb-4" style={{ color: 'var(--accent-gold)' }}>
+                        👗
+                      </div>
+                      <p style={{ color: 'var(--text-cream)', marginBottom: '8px' }}>
+                        Σύρε φωτογραφία ρούχου εδώ
+                      </p>
+                      <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                        ή πάτα για upload
+                      </p>
+                      <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', marginTop: '12px' }}>
+                        Tip: Κατέβασε φωτό ρούχου από Zara, H&M κλπ.
+                      </p>
+                      <input
+                        ref={clothingFileInputRef}
+                        type="file"
+                        accept="image/png, image/jpeg, image/webp"
+                        onChange={handleClothingFileChange}
+                        className="hidden"
                       />
                     </div>
-                    <div className="p-3">
-                      <p
-                        className="text-sm font-medium truncate"
-                        style={{ color: 'var(--text-cream)' }}
+                  ) : (
+                    <div className="relative">
+                      <div
+                        className="rounded-xl overflow-hidden"
+                        style={{ border: '2px solid rgba(212, 175, 55, 0.3)' }}
                       >
-                        {product.name}
-                      </p>
-                      <p
-                        className="text-xs mt-1"
-                        style={{ color: 'var(--text-muted)' }}
+                        <img
+                          src={clothingImagePreview}
+                          alt="Ρούχο"
+                          className="w-full h-auto max-h-[400px] object-contain"
+                          style={{ background: 'var(--bg-secondary)' }}
+                        />
+                      </div>
+                      <button
+                        onClick={() => {
+                          setClothingImage(null);
+                          setClothingImagePreview(null);
+                          setResultImageUrl(null);
+                          if (clothingFileInputRef.current) clothingFileInputRef.current.value = '';
+                        }}
+                        className="mt-3 text-sm underline"
+                        style={{ color: 'var(--accent-gold-soft)' }}
                       >
-                        {product.brand}
-                      </p>
-                      <p
-                        className="text-sm font-semibold mt-1"
-                        style={{ color: 'var(--accent-gold)' }}
-                      >
-                        {product.price}
-                      </p>
+                        Αλλαγή ρούχου
+                      </button>
                     </div>
+                  )}
+                </>
+              )}
+
+              {/* === CATALOG MODE === */}
+              {clothingMode === 'catalog' && (
+                <>
+                  <p className="text-sm mb-4" style={{ color: 'var(--text-muted)' }}>
+                    Σύντομα θα συνδεθούμε με e-shops! Προς το παρόν, ανέβασε δική σου φωτό ρούχου.
+                  </p>
+                  {/* Category Tabs */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {CATEGORIES.map((cat) => (
+                      <button
+                        key={cat.id}
+                        className={`category-tab ${activeCategory === cat.id ? 'active' : ''}`}
+                        onClick={() => setActiveCategory(cat.id)}
+                      >
+                        {cat.label}
+                      </button>
+                    ))}
                   </div>
-                ))}
-              </div>
+
+                  {/* Product Grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto pr-2">
+                    {filteredProducts.map((product) => (
+                      <div
+                        key={product.id}
+                        className={`product-card ${selectedProduct?.id === product.id ? 'selected' : ''}`}
+                        onClick={() => { setSelectedProduct(product); setClothingImage(null); setClothingImagePreview(null); }}
+                      >
+                        <div className="checkmark">✓</div>
+                        <div className="aspect-[4/5] overflow-hidden">
+                          <img
+                            src={product.image}
+                            alt={product.name}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        </div>
+                        <div className="p-3">
+                          <p className="text-sm font-medium truncate" style={{ color: 'var(--text-cream)' }}>
+                            {product.name}
+                          </p>
+                          <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
+                            {product.brand}
+                          </p>
+                          <p className="text-sm font-semibold mt-1" style={{ color: 'var(--accent-gold)' }}>
+                            {product.price}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
@@ -549,11 +666,11 @@ export default function StylistaPage() {
             <button
               className="btn-gold w-full max-w-md text-lg"
               onClick={handleTryOn}
-              disabled={isLoading || !userImage || !selectedProduct}
+              disabled={isLoading || !userImage || !hasClothing}
               style={{
-                opacity: !userImage || !selectedProduct ? 0.5 : 1,
+                opacity: !userImage || !hasClothing ? 0.5 : 1,
                 cursor:
-                  !userImage || !selectedProduct ? 'not-allowed' : 'pointer',
+                  !userImage || !hasClothing ? 'not-allowed' : 'pointer',
               }}
             >
               {isLoading ? 'Περίμενε...' : 'Δοκίμασέ το!'}
