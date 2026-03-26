@@ -82,15 +82,12 @@ export default function StylistaPage() {
   const [error, setError] = useState<string | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const [isClothingDragOver, setIsClothingDragOver] = useState(false);
-  const [titleReady, setTitleReady] = useState(false);
-
   const fileInputRef = useRef<HTMLInputElement>(null);
   const clothingFileInputRef = useRef<HTMLInputElement>(null);
   const tryOnSectionRef = useRef<HTMLDivElement>(null);
 
   // Scroll reveal with IntersectionObserver
   useEffect(() => {
-    setTitleReady(true);
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -248,8 +245,6 @@ export default function StylistaPage() {
   const scrollToTryOn = () => {
     tryOnSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
-
-  const titleText = 'Dr.Style';
 
   return (
     <div style={{ fontFamily: 'var(--font-body)' }}>
