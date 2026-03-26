@@ -58,18 +58,32 @@ STEP 1 - IDENTIFY THE CLOTHING:
 - If Image 2 has background, mentally remove it and focus on the clothing item
 
 STEP 2 - APPLY ONLY THAT GARMENT:
-- If Image 2 is a TOP (shirt, blouse, t-shirt, sweater, hoodie):
-  → Change ONLY the top on the person. Keep their existing pants/bottom UNCHANGED
-- If Image 2 is PANTS/TROUSERS (jeans, shorts, skirt):
-  → Change ONLY the bottom on the person. Keep their existing top UNCHANGED
-- If Image 2 is a DRESS or FULL OUTFIT:
-  → Replace the entire outfit
-- If Image 2 is a JACKET/COAT:
-  → ADD the jacket over their existing outfit
-- If Image 2 is SHOES:
-  → Change ONLY the shoes. Keep everything else UNCHANGED
-- If Image 2 is an ACCESSORY (hat, bag, scarf, sunglasses):
-  → ADD the accessory. Keep everything else UNCHANGED
+- If Image 2 is a TOP (shirt, blouse, t-shirt, sweater, hoodie, polo, tank top):
+  → Change ONLY the top. Keep existing pants/bottom/shoes/accessories UNCHANGED
+- If Image 2 is PANTS/TROUSERS (jeans, chinos, shorts, cargo, leggings):
+  → Change ONLY the bottom. Keep existing top/shoes/accessories UNCHANGED
+- If Image 2 is a SKIRT:
+  → Change ONLY the bottom to the skirt. Keep top/shoes/accessories UNCHANGED
+- If Image 2 is a DRESS or FULL OUTFIT or JUMPSUIT:
+  → Replace the entire outfit top+bottom
+- If Image 2 is a JACKET/COAT/BLAZER/VEST:
+  → ADD it over the existing outfit. Do not remove anything underneath
+- If Image 2 is SHOES/SNEAKERS/BOOTS/HEELS/SANDALS:
+  → Change ONLY the footwear. Keep everything else UNCHANGED
+- If Image 2 is a HAT/CAP/BEANIE/BERET:
+  → ADD it on the person's head. Keep hairstyle visible where appropriate
+- If Image 2 is SUNGLASSES/EYEGLASSES:
+  → PUT them on the person's face. Remove existing glasses if any
+- If Image 2 is a BAG/PURSE/BACKPACK/CLUTCH:
+  → ADD it to the person (hand, shoulder, or crossbody as appropriate)
+- If Image 2 is a SCARF/TIE/BOWTIE:
+  → ADD it around the neck/chest area over existing clothing
+- If Image 2 is JEWELRY (necklace, earrings, bracelet, ring, watch):
+  → ADD it to the appropriate body part. Keep existing jewelry unless it conflicts
+- If Image 2 is a BELT:
+  → ADD or replace the belt at the waist area
+- If UNSURE what category:
+  → Analyze the garment and make your best judgment on what to change/add
 
 STEP 3 - PRESERVE THE PERSON:
 - PRESERVE EXACTLY: face, facial features, sunglasses, accessories, hairstyle, skin tone, body shape, pose, hand position
