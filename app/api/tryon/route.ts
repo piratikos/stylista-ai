@@ -12,7 +12,7 @@ function arrayBufferToBase64(buffer: ArrayBuffer): string {
   return btoa(binary);
 }
 
-const MODEL_ID = "gemini-2.0-flash-exp-image-generation";
+const MODEL_ID = "gemini-2.5-flash-preview-image-generation";
 const API_BASE = "https://generativelanguage.googleapis.com/v1beta/models";
 
 export async function POST(req: NextRequest) {
