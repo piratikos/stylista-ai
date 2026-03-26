@@ -249,7 +249,7 @@ export default function StylistaPage() {
     tryOnSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const titleText = 'STYLISTA.ai';
+  const titleText = 'Dr.Style';
 
   return (
     <div style={{ fontFamily: 'var(--font-body)' }}>
@@ -263,30 +263,21 @@ export default function StylistaPage() {
         </div>
 
         <div className="relative z-10 text-center px-4">
-          {/* Title with letter fade */}
-          <h1
-            className="letter-fade mb-6"
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(3rem, 8vw, 6rem)',
-              fontWeight: 300,
-              letterSpacing: '0.1em',
-              color: 'var(--text-cream)',
-            }}
-          >
-            {titleReady &&
-              titleText.split('').map((char, i) => (
-                <span
-                  key={i}
-                  style={{
-                    animationDelay: `${i * 0.08}s`,
-                    color: char === '.' ? 'var(--accent-gold)' : undefined,
-                  }}
-                >
-                  {char}
-                </span>
-              ))}
-          </h1>
+          {/* Logo */}
+          <div className="mb-6 opacity-0" style={{ animation: 'letterAppear 1s ease 0.3s forwards' }}>
+            <img
+              src="/dr-style-logo.jpg"
+              alt="Dr.Style"
+              style={{
+                width: 'clamp(200px, 40vw, 400px)',
+                height: 'auto',
+                margin: '0 auto',
+                mixBlendMode: 'multiply',
+                filter: 'brightness(1.1) contrast(1.2)',
+                borderRadius: '16px',
+              }}
+            />
+          </div>
 
           <p
             className="mb-10 opacity-0"
@@ -839,22 +830,23 @@ export default function StylistaPage() {
           borderTop: '1px solid rgba(255,255,255,0.05)',
         }}
       >
-        <p
+        <img
+          src="/dr-style-logo.jpg"
+          alt="Dr.Style"
           style={{
-            fontFamily: 'var(--font-heading)',
-            fontSize: '1.3rem',
-            color: 'var(--accent-gold-soft)',
-            letterSpacing: '0.1em',
-            marginBottom: '8px',
+            width: '120px',
+            height: 'auto',
+            margin: '0 auto 8px',
+            mixBlendMode: 'multiply',
+            filter: 'brightness(1.1) contrast(1.2)',
+            borderRadius: '8px',
           }}
-        >
-          STYLISTA.ai
-        </p>
+        />
         <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
           AI Fashion Platform — Ελλάδα
         </p>
         <p className="text-xs mt-4" style={{ color: 'rgba(160,160,160,0.5)' }}>
-          © 2026 Stylista AI
+          © 2026 Dr.Style — Freedom Society
         </p>
       </footer>
     </div>

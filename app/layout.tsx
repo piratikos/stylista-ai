@@ -17,7 +17,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "STYLISTA.ai — Ντύσου Ψηφιακά. Αγόρασε Πραγματικά.",
+  title: "Dr.Style — Ντύσου Ψηφιακά. Αγόρασε Πραγματικά.",
   description:
     "Δοκίμασε ρούχα online με τεχνητή νοημοσύνη. Virtual try-on platform για Ελλάδα.",
   icons: {
