@@ -24,27 +24,27 @@ const CATEGORIES = [
 ];
 
 const PRODUCTS: Product[] = [
-  { id: 1, name: 'Λευκό Βαμβακερό T-Shirt', brand: 'Zara', price: '19.95€', category: 'tops', storeUrl: 'https://www.zara.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=T-Shirt' },
-  { id: 2, name: 'Ριγέ Πουκάμισο Oversized', brand: 'H&M', price: '29.99€', category: 'tops', storeUrl: 'https://www2.hm.com/el_gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Poukamiso' },
-  { id: 3, name: 'Σατέν Μπλούζα Εμεραλντ', brand: 'Attrattivo', price: '45.00€', category: 'tops', storeUrl: 'https://www.attrattivo.gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Saten+Blouza' },
-  { id: 4, name: 'Μπεζ Πλεκτό Πουλόβερ', brand: 'Massimo Dutti', price: '59.95€', category: 'tops', storeUrl: 'https://www.massimodutti.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Plekto' },
-  { id: 5, name: 'Μαύρο Crop Top', brand: 'Zara', price: '15.95€', category: 'tops', storeUrl: 'https://www.zara.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Crop+Top' },
-  { id: 6, name: 'Λινό Πουκάμισο Λευκό', brand: 'Massimo Dutti', price: '49.95€', category: 'tops', storeUrl: 'https://www.massimodutti.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Lino' },
-  { id: 7, name: 'Mom Jeans Ψηλόμεσο', brand: 'H&M', price: '34.99€', category: 'bottoms', storeUrl: 'https://www2.hm.com/el_gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Mom+Jeans' },
-  { id: 8, name: 'Cigarette Παντελόνι', brand: 'Massimo Dutti', price: '49.95€', category: 'bottoms', storeUrl: 'https://www.massimodutti.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Cigarette' },
-  { id: 9, name: 'Λινή Φούστα Midi', brand: 'Mango', price: '39.99€', category: 'bottoms', storeUrl: 'https://shop.mango.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Fousta+Midi' },
-  { id: 10, name: 'Wide Leg Παντελόνι', brand: 'Zara', price: '35.95€', category: 'bottoms', storeUrl: 'https://www.zara.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Wide+Leg' },
-  { id: 11, name: 'Floral Midi Φόρεμα', brand: 'Attrattivo', price: '69.00€', category: 'dresses', storeUrl: 'https://www.attrattivo.gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Floral+Dress' },
-  { id: 12, name: 'Μαύρο Mini Φόρεμα', brand: 'Zara', price: '39.95€', category: 'dresses', storeUrl: 'https://www.zara.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Mini+Dress' },
-  { id: 13, name: 'Σατέν Slip Dress', brand: 'Mango', price: '49.99€', category: 'dresses', storeUrl: 'https://shop.mango.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Slip+Dress' },
-  { id: 14, name: 'Λευκά Sneakers', brand: 'Cosmos Sport', price: '69.99€', category: 'shoes', storeUrl: 'https://www.cosmossport.gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Sneakers' },
-  { id: 15, name: 'Μαύρες Μπότες Ankle', brand: 'Spartoo', price: '89.00€', category: 'shoes', storeUrl: 'https://www.spartoo.gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Ankle+Boots' },
-  { id: 16, name: 'Μπεζ Πέδιλα Τακούνι', brand: 'Spartoo', price: '59.00€', category: 'shoes', storeUrl: 'https://www.spartoo.gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Pedila' },
-  { id: 17, name: 'Μαύρη Crossbody Τσάντα', brand: 'Attica DPS', price: '49.00€', category: 'bags', storeUrl: 'https://www.atticadps.gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Crossbody' },
-  { id: 18, name: 'Ψάθινη Tote', brand: 'Mango', price: '35.99€', category: 'bags', storeUrl: 'https://shop.mango.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Tote+Bag' },
-  { id: 19, name: 'Χρυσοί Κρίκοι', brand: 'Notos Galleries', price: '19.99€', category: 'accessories', storeUrl: 'https://www.notos.gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Krikoi' },
-  { id: 20, name: 'Cat Eye Γυαλιά', brand: 'Notos Galleries', price: '29.99€', category: 'accessories', storeUrl: 'https://www.notos.gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Cat+Eye' },
-  { id: 21, name: 'Δερμάτινη Ζώνη', brand: 'Factory Outlet', price: '24.99€', category: 'accessories', storeUrl: 'https://www.factoryoutlet.gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37?text=Zoni' },
+  { id: 1, name: 'Λευκό Βαμβακερό T-Shirt', brand: 'Zara', price: '19.95€', category: 'tops', storeUrl: 'https://www.zara.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=T-Shirt' },
+  { id: 2, name: 'Ριγέ Πουκάμισο Oversized', brand: 'H&M', price: '29.99€', category: 'tops', storeUrl: 'https://www2.hm.com/el_gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Poukamiso' },
+  { id: 3, name: 'Σατέν Μπλούζα Εμεραλντ', brand: 'Attrattivo', price: '45.00€', category: 'tops', storeUrl: 'https://www.attrattivo.gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Saten+Blouza' },
+  { id: 4, name: 'Μπεζ Πλεκτό Πουλόβερ', brand: 'Massimo Dutti', price: '59.95€', category: 'tops', storeUrl: 'https://www.massimodutti.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Plekto' },
+  { id: 5, name: 'Μαύρο Crop Top', brand: 'Zara', price: '15.95€', category: 'tops', storeUrl: 'https://www.zara.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Crop+Top' },
+  { id: 6, name: 'Λινό Πουκάμισο Λευκό', brand: 'Massimo Dutti', price: '49.95€', category: 'tops', storeUrl: 'https://www.massimodutti.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Lino' },
+  { id: 7, name: 'Mom Jeans Ψηλόμεσο', brand: 'H&M', price: '34.99€', category: 'bottoms', storeUrl: 'https://www2.hm.com/el_gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Mom+Jeans' },
+  { id: 8, name: 'Cigarette Παντελόνι', brand: 'Massimo Dutti', price: '49.95€', category: 'bottoms', storeUrl: 'https://www.massimodutti.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Cigarette' },
+  { id: 9, name: 'Λινή Φούστα Midi', brand: 'Mango', price: '39.99€', category: 'bottoms', storeUrl: 'https://shop.mango.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Fousta+Midi' },
+  { id: 10, name: 'Wide Leg Παντελόνι', brand: 'Zara', price: '35.95€', category: 'bottoms', storeUrl: 'https://www.zara.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Wide+Leg' },
+  { id: 11, name: 'Floral Midi Φόρεμα', brand: 'Attrattivo', price: '69.00€', category: 'dresses', storeUrl: 'https://www.attrattivo.gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Floral+Dress' },
+  { id: 12, name: 'Μαύρο Mini Φόρεμα', brand: 'Zara', price: '39.95€', category: 'dresses', storeUrl: 'https://www.zara.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Mini+Dress' },
+  { id: 13, name: 'Σατέν Slip Dress', brand: 'Mango', price: '49.99€', category: 'dresses', storeUrl: 'https://shop.mango.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Slip+Dress' },
+  { id: 14, name: 'Λευκά Sneakers', brand: 'Cosmos Sport', price: '69.99€', category: 'shoes', storeUrl: 'https://www.cosmossport.gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Sneakers' },
+  { id: 15, name: 'Μαύρες Μπότες Ankle', brand: 'Spartoo', price: '89.00€', category: 'shoes', storeUrl: 'https://www.spartoo.gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Ankle+Boots' },
+  { id: 16, name: 'Μπεζ Πέδιλα Τακούνι', brand: 'Spartoo', price: '59.00€', category: 'shoes', storeUrl: 'https://www.spartoo.gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Pedila' },
+  { id: 17, name: 'Μαύρη Crossbody Τσάντα', brand: 'Attica DPS', price: '49.00€', category: 'bags', storeUrl: 'https://www.atticadps.gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Crossbody' },
+  { id: 18, name: 'Ψάθινη Tote', brand: 'Mango', price: '35.99€', category: 'bags', storeUrl: 'https://shop.mango.com/gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Tote+Bag' },
+  { id: 19, name: 'Χρυσοί Κρίκοι', brand: 'Notos Galleries', price: '19.99€', category: 'accessories', storeUrl: 'https://www.notos.gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Krikoi' },
+  { id: 20, name: 'Cat Eye Γυαλιά', brand: 'Notos Galleries', price: '29.99€', category: 'accessories', storeUrl: 'https://www.notos.gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Cat+Eye' },
+  { id: 21, name: 'Δερμάτινη Ζώνη', brand: 'Factory Outlet', price: '24.99€', category: 'accessories', storeUrl: 'https://www.factoryoutlet.gr/', image: 'https://placehold.co/400x500/1a1a1a/d4af37.png?text=Zoni' },
 ];
 
 const STORES = [
@@ -161,12 +161,17 @@ export default function StylistaPage() {
     setError(null);
     setResultImageUrl(null);
 
-    // Fetch the product image as a blob
     try {
+      // Fetch the product image as a PNG blob
       const productImageResponse = await fetch(selectedProduct.image);
+      if (!productImageResponse.ok) {
+        throw new Error('Δεν μπόρεσε να φορτωθεί η εικόνα προϊόντος.');
+      }
       const productImageBlob = await productImageResponse.blob();
+
+      // Ensure we send it as image/png
       const clothingFile = new File([productImageBlob], 'clothing.png', {
-        type: productImageBlob.type || 'image/png',
+        type: 'image/png',
       });
 
       const formData = new FormData();
@@ -181,7 +186,8 @@ export default function StylistaPage() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || `Σφάλμα API: ${response.statusText}`);
+        const detail = result.details || result.error || response.statusText;
+        throw new Error(`Σφάλμα: ${detail}`);
       }
 
       if (result.image) {
