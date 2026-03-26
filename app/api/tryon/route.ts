@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { GoogleGenAI } from "@google/genai";
-// History types might not be needed if we simplify the input structure
-// import { HistoryItem, HistoryPart } from "@/libs/types";
+
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 // Helper function to convert ArrayBuffer to Base64
 function arrayBufferToBase64(buffer: ArrayBuffer): string {
@@ -14,16 +14,20 @@ function arrayBufferToBase64(buffer: ArrayBuffer): string {
   return btoa(binary);
 }
 
-// Initialize the Google Gen AI client with your API key
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "";
-if (!GEMINI_API_KEY) {
-  console.error("Missing GEMINI_API_KEY environment variable.");
-  // Optionally throw an error or handle appropriately
-}
-const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
-
 // Define the model ID for Gemini 2.0 Flash experimental
 const MODEL_ID = "gemini-2.0-flash-exp-image-generation";
+
+// Lazy-init the AI client to avoid build-time errors
+let _ai: InstanceType<typeof import("@google/genai").GoogleGenAI> | null = null;
+async function getAI() {
+  if (!_ai) {
+    const { GoogleGenAI } = await import("@google/genai");
+    const key = process.env.GEMINI_API_KEY || "";
+    if (!key) console.error("Missing GEMINI_API_KEY environment variable.");
+    _ai = new GoogleGenAI({ apiKey: key });
+  }
+  return _ai;
+}
 
 // Removed FormattedHistoryItem interface as history handling is simplified
 
@@ -194,6 +198,7 @@ export async function POST(req: NextRequest) {
 
 
       // --- Generate the content ---
+      const ai = await getAI();
       response = await ai.models.generateContent({
         model: MODEL_ID,
         contents: contents, // Use the new contents structure
