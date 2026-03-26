@@ -1,11 +1,11 @@
 {
-  "name": "august-frontend",
-  "version": "0.1.0",
+  "name": "stylista-ai",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "NODE_OPTIONS='--import ./localStorage-polyfill.mjs' next dev",
+    "build": "NODE_OPTIONS='--import ./localStorage-polyfill.mjs' next build",
+    "start": "NODE_OPTIONS='--import ./localStorage-polyfill.mjs' next start",
     "lint": "next lint"
   },
   "dependencies": {

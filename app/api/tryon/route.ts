@@ -18,7 +18,8 @@ function arrayBufferToBase64(buffer: ArrayBuffer): string {
 const MODEL_ID = "gemini-2.0-flash-exp-image-generation";
 
 // Lazy-init the AI client to avoid build-time errors
-let _ai: InstanceType<typeof import("@google/genai").GoogleGenAI> | null = null;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let _ai: any = null;
 async function getAI() {
   if (!_ai) {
     const { GoogleGenAI } = await import("@google/genai");
